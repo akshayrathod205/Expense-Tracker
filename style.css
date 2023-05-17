@@ -128,6 +128,12 @@ body {
     margin-left: 20%;
 }
 
+.icons-container{
+    width: 5em;
+    margin: 1.2em;
+    align-items: center;
+}
+
 .expense-title {
     margin-bottom: 1em;
 }
@@ -140,10 +146,36 @@ body {
     color: #ff465a;
 }
 
+.edit{
+    margin-left: auto;
+}
+
+.edit, .delete{
+    background: transparent;
+    cursor: pointer;
+    margin-right: 1.5em;
+    border: none;
+    color: #587ef4;
+}
+
+button {
+    background: #587ef4;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4974f6;
+}
+
 @media screen and (max-width: 600px) {
     .wrapper {
         font-size: 14px;
     }    
+
     .sub-container {
         grid-template-columns: 1fr;
         gap: 1em;
