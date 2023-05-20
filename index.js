@@ -9,6 +9,7 @@ const expenseAmountError = document.getElementById("expense-amt-error")
 const amount = document.getElementById("amount")
 const expenditureValue = document.getElementById("expend-value")
 const balanceValue = document.getElementById("balance-amt")
+const list = document.getElementById("list")
 let tempAmount = 0
 
 // Budget function
@@ -19,9 +20,9 @@ totalAmountButton.addEventListener("click", () => {
     }
     else {
         errorMessage.classList.add("hide")
-        amount.innerHTML =tempAmount
+        amount.innerHTML = tempAmount
         balanceValue.innerText = tempAmount - expenditureValue.innerText
-        totalAmount.value = 0
+        totalAmount.value = ""
     }
 })
 
@@ -51,6 +52,7 @@ const modifyElement = (element, edit = false) => {
     parentDiv.remove()
 }
 
+// Create list function
 const listCreator = (expenseName, expenseValue) => {
     let subListContent = document.createElement("div")
     subListContent.classList.add("sublist-content", "flex-space")
@@ -63,7 +65,7 @@ const listCreator = (expenseName, expenseValue) => {
         modifyElement(editButton, true)
     })
     let deleteButton = document.createElement("button")
-    deleteButton.classList.add("fa-solid", "fa-pen-to-square", "edit")
+    deleteButton.classList.add("fa-solid", "fa-trash-can", "delete")
     deleteButton.style.fontSize = "1.2em"
     deleteButton.addEventListener("click", () => {
         modifyElement(deleteButton)
@@ -75,10 +77,25 @@ const listCreator = (expenseName, expenseValue) => {
 
 // Add Expenses 
 checkAmountButton.addEventListener("click", () => {
+    // Check if empty
     if(!userAmount.value || !expenseTitle.value) {
         expenseTitleError.classList.remove("hide")
         return false
     }
-    disableButtons(false)
     
+    // Enable buttons
+    disableButtons(false)
+    // Expense
+    let expenditure = parseInt(userAmount.value)
+    // Total expense = existing + new
+    let sum = parseInt(expenditureValue.innerText) + expenditure
+    expenditureValue.innerText = sum
+    // Total balance = budget - total expense
+    const totalBalance = tempAmount - sum
+    balanceValue.innerText = totalBalance
+    // Create list
+    listCreator(expenseTitle.value, userAmount.value)
+    // Clear inputs
+    expenseTitle.value = ""
+    userAmount.value = ""
 })
